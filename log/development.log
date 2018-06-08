@@ -791,3 +791,21 @@ Processing by HomeController#index as HTML
 Completed 200 OK in 3168ms (Views: 3164.0ms | ActiveRecord: 0.0ms)
 
 
+Started GET "/home/index" for 127.0.0.1 at 2018-06-08 14:39:16 -0400
+Processing by HomeController#index as HTML
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (4.9ms)
+[Webpacker] Compiling…
+[Webpacker] Compiled all packs in /Users/andywong/Desktop/yelpNGoogle/public/packs
+Completed 200 OK in 5252ms (Views: 5242.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/home/index" for 127.0.0.1 at 2018-06-08 14:40:02 -0400
+Processing by HomeController#index as HTML
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (0.4ms)
+[Webpacker] Compiling…
+[Webpacker] Compiled all packs in /Users/andywong/Desktop/yelpNGoogle/public/packs
+Completed 200 OK in 2136ms (Views: 2134.3ms | ActiveRecord: 0.0ms)
+
+
