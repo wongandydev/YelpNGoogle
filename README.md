@@ -1,24 +1,21 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# yelpNgoogle
 
-Things you may want to cover:
+### The app the bridges the gap between Yelp and Google 
 
-* Ruby version
+** Tech Used **
 
-* System dependencies
+- Foursquare API
+- Google Maps API
+- Google Directions API
 
-* Configuration
 
-* Database creation
+** Coding Languages ** :
+Ruby on Rails
+HTML, CSS, .JS
 
-* Database initialization
+** Frameworks ** :
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- React.JS
+- react-rails
+ 
