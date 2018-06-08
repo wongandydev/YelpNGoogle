@@ -10,11 +10,12 @@
 - Google Directions API
 
 
-**Coding Languages** :
-Ruby on Rails
-HTML, CSS, .JS
+**Coding Languages**:
 
-**Frameworks** :
+- Ruby on Rails
+- HTML, CSS, .JS
+
+**Frameworks**
 
 - React.JS
 - react-rails
