@@ -3,18 +3,18 @@
 
 ### The app the bridges the gap between Yelp and Google 
 
-** Tech Used **
+**Tech Used**
 
 - Foursquare API
 - Google Maps API
 - Google Directions API
 
 
-** Coding Languages ** :
+**Coding Languages** :
 Ruby on Rails
 HTML, CSS, .JS
 
-** Frameworks ** :
+**Frameworks** :
 
 - React.JS
 - react-rails
