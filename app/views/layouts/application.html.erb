@@ -29,7 +29,7 @@
 
   <body>
     <%= react_component("HelloWorld") %>
-    Current Location: <%= request.location.coordinates.longitude %> <%= @coordinates.lat %>, <%= @coordinates.long %> <br>
+    Current Location: <%= request.location.coordinates %> <%= @coordinates.lat %>, <%= @coordinates.long %> <br>
     <div id="map">
 
     </div>
