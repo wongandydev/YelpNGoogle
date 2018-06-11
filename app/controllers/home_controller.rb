@@ -4,16 +4,8 @@ class HomeController < ApplicationController
  
     # @search_history.save
     # redirect_to @search_history
-  end
-
-  def show
-    # @search_history = SearchHistory.find(params[:id])
-    
-  end
-
-
-  private 
-  def search_params
-    # params.require("search_history").permit("search_item")  
+    api = HTTParty.get("https://www.zipcodeapi.com/rest/jyxRYlYW9WIiXTZgBppSKmUqzxsb8FTeTHZZe4d5cZIFwPZijs3UrvYvJGrlvPt1/info.json/11203/degrees")
+    body = JSON.parse(api.body)
+    @coordinates = body["lat"], body["lng"]
   end
 end
