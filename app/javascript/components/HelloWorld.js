@@ -17,6 +17,8 @@ class HelloWorld extends React.Component {
 
   handleSubmit(event){
     alert('A name was submitted: ' + this.state.value);
+    var newZip = $.ajax("/home/#apiCall");
+    alert(newZip);
     event.preventDefault();
   }
 

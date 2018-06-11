@@ -30,9 +30,14 @@ gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+# Getting current location via your IP
 gem 'geocoder'
 
+#Http Call
 gem 'httparty'
+
+#Google Maps 4 Maps
+gem 'gmaps4rails'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

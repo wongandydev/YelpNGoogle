@@ -1,11 +1,16 @@
 class HomeController < ApplicationController
+  Coordinates = Struct.new(:lat, :long)
+
   def index
-    # @search_history = SearchHistory.new(search_params)
- 
-    # @search_history.save
-    # redirect_to @search_history
-    api = HTTParty.get("https://www.zipcodeapi.com/rest/jyxRYlYW9WIiXTZgBppSKmUqzxsb8FTeTHZZe4d5cZIFwPZijs3UrvYvJGrlvPt1/info.json/11203/degrees")
-    body = JSON.parse(api.body)
-    @coordinates = body["lat"], body["lng"]
+    zip_code = "10002"
+    body = apiCall(zip_code)
+    @coordinates = Coordinates.new(body["lat"], body["lng"])
+  end
+
+  def apiCall(zip_code)
+    uri = "https://www.zipcodeapi.com/rest/jyxRYlYW9WIiXTZgBppSKmUqzxsb8FTeTHZZe4d5cZIFwPZijs3UrvYvJGrlvPt1/info.json/#{zip_code}/degrees"
+    response = HTTParty.get(uri)
+    return JSON.parse(response.body)
+
   end
 end
