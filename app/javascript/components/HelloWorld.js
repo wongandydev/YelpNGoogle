@@ -1,4 +1,5 @@
 import React from "react"
+import $ from 'jquery';
 // import PropTypes from "prop-types"
 
 class HelloWorld extends React.Component {
@@ -15,11 +16,19 @@ class HelloWorld extends React.Component {
     this.setState({value: event.target.value})
   }
 
-  handleSubmit(event){
-    alert('A name was submitted: ' + this.state.value);
-    var newZip = $.ajax("/home/#apiCall");
-    alert(newZip);
+handleSubmit(event){
     event.preventDefault();
+    alert('A name was submitted: ' + this.state.value);
+    $.ajax({
+        url: "/apiCall",
+        data: {"zip_code": this.state.value},
+        type: "GET",
+        success(result) {
+            alert(result);
+        }, error(xhr, status, error) {
+            alert(status);
+        }
+    });
   }
 
   render() {
