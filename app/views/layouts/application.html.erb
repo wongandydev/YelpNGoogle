@@ -11,13 +11,11 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
     <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
       #map {
         height: 400px;
         width: 400px;
       }
-      /* Optional: Makes the sample page fill the window. */
+
       html, body {
         height: 100%;
         margin: 0;
@@ -29,19 +27,38 @@
 
   <body>
     <%= react_component("HelloWorld") %>
-    Current Location: <%= request.location.coordinates %> <%= @coordinates.lat %>, <%= @coordinates.long %> <br>
+    <div id="currentLocation">
+      Current Location: NULL <br>
+    </div>
+
     <div id="map">
 
     </div>
     <script>
         var map;
-        var lng = <%= @coordinates.long %>
-        var lat = <%= @coordinates.lat %>
-            function initMap() {
+        var lng = 40
+        var lat = -74
+
+        function getLocation(){
+            if(navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(initMap);
+            } else {
+                alert("Geolocation is not supported.");
+            }
+
+        }
+
+        function initMap(position) {
             map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: lat, lng: lng},
+                center: {lat: position.coords.latitude, lng: position.coords.longitude},
                 zoom: 15
             });
+
+            document.getElementById("currentLocation").innerHTML = "Current Location : " +position.coords.latitude +"," + position.coords.longitude
+        }
+
+        window.onload = function() {
+            getLocation()
         }
     </script>
     <script async defer
