@@ -47,18 +47,18 @@ class HelloWorld extends React.Component {
                   var tableDetailName = document.createElement("td");
                   var tableDetailAddress = document.createElement("td");
                   var name = document.createTextNode(response.response.venues[t].name);
-                  var address = document.createTextNode(response.response.venues[t].location.address);
-                  var addressEnd = document.createTextNode(response.response.venues[t].location.city + ", "
-                      + response.response.venues[t].location.state + ", "
-                      + response.response.venues[t].location.postalCode);
+                  var address = document.createTextNode(response.response.venues[t].location.formattedAddress);
+                  // var addressEnd = document.createTextNode(response.response.venues[t].location.city + ", "
+                  //     + response.response.venues[t].location.state + ", "
+                  //     + response.response.venues[t].location.postalCode);
 
 
-                  var lineBreak = document.createElement("br");
+                  // var lineBreak = document.createElement("br");
 
                   tableDetailName.appendChild(name);
                   tableDetailAddress.appendChild(address);
-                  tableDetailAddress.appendChild(lineBreak);
-                  tableDetailAddress.appendChild(addressEnd);
+                  // tableDetailAddress.appendChild(lineBreak);
+                  // tableDetailAddress.appendChild(addressEnd);
 
                   tableRow.appendChild(tableDetailName);
                   tableRow.appendChild(tableDetailAddress);

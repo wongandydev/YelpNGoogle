@@ -58,13 +58,17 @@ body {
     vertical-align: middle;
     background-color: #F7F7F7;
     margin: 0 0 100px;
+    padding-bottom: 30px;
 }
 
 footer{
     position: absolute;
     left: 0;
     bottom: 0;
-    height: 100px;
+    min-height: 20px;
+    margin-bottom: 0px;
     width: 100%;
+    clear: both;
+    padding-top: 10px;
     background: #F08080;
 }

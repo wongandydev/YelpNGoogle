@@ -80,9 +80,10 @@
               src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCG-FPVU4hZRhs6usmsLTbYfUOeUV9VLcQ&callback=initMap">
       </script>
     </div>
+    <footer>
+      <%= Time.now.month %>/<%= Time.now.day %>/<%= Time.now.year %> :: <%= Time.now.strftime("%I") %> : <%= Time.now.min %>
+    </footer>
   </body>
 
-  <footer>
-    <%= Time.now.month %>/<%= Time.now.day %>/<%= Time.now.year %> :: <%= Time.now.strftime("%I") %> : <%= Time.now.min %>
-  </footer>
+
 </html>
