@@ -5,73 +5,84 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <%= javascript_pack_tag 'application' %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
     <style>
-      #map {
-        height: 400px;
-        width: 400px;
-      }
 
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
     </style>
 
   </head>
 
   <body>
     <%= react_component("HelloWorld") %>
-    <div id="currentLocation">
-      Current Location: NULL <br>
+    Current Location: <div id="currentLocation">
+      NULL <br>
     </div>
 
     <button onclick="getLocation()"> Use Current Location</button>
 
-    <div id="map">
+    <div id = "yelpNmap">
+      <div id="map">
+      </div>
 
+      <div>
+        <table id="table_header">
+          <tr>
+            <th>Store Name</th>
+            <th>Address</th>
+            <th> Go Here </th>
+          </tr>
+        </table>
+
+        <table id="result">
+
+        </table>
+      </div>
+      <script>
+          var map;
+          var lat = 40.21;
+          var lng = -73.98;
+
+          function getLocation(){
+              if(navigator.geolocation){
+                  navigator.geolocation.getCurrentPosition(mapWithCurrentLocation);
+              } else {
+                  alert("Geolocation is not supported.");
+              }
+
+          }
+
+          function mapWithCurrentLocation(position){
+              initMap(position.coords.latitude, position.coords.longitude);
+
+          }
+
+          function initMap(latitude, longitude) {
+              map = new google.maps.Map(document.getElementById('map'), {
+                  center: {lat: latitude, lng: longitude},
+                  zoom: 15
+              });
+
+              document.getElementById("currentLocation").innerHTML = latitude.toFixed(2)+ "," +longitude.toFixed(2)
+          }
+
+          window.onload = function() {
+              initMap(lat, lng);
+          };
+      </script>
+      <script async defer
+              src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCG-FPVU4hZRhs6usmsLTbYfUOeUV9VLcQ&callback=initMap">
+      </script>
     </div>
-    <script>
-        var map;
-        var lat = 40.21;
-        var lng = -73.123;
-
-        function getLocation(){
-            if(navigator.geolocation){
-                navigator.geolocation.getCurrentPosition(mapWithCurrentLocation);
-            } else {
-                alert("Geolocation is not supported.");
-            }
-
-        }
-
-        function mapWithCurrentLocation(position){
-            initMap(position.coords.latitude, position.coords.longitude);
-        }
-
-        function initMap(latitude, longitude) {
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: latitude, lng: longitude},
-                zoom: 15
-            });
-
-            document.getElementById("currentLocation").innerHTML = "Current Location : " +
-                "" + latitude.toFixed(2) + "," + longitude.toFixed(2)
-        }
-
-        window.onload = function() {
-            initMap(lat, lng);
-        };
-    </script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCG-FPVU4hZRhs6usmsLTbYfUOeUV9VLcQ&callback=initMap">
-    </script>
-
-    <%= Time.now.month %>/<%= Time.now.day %>/<%= Time.now.year %> :: <%= Time.now.strftime("%I") %> : <%= Time.now.min %>
   </body>
+
+  <footer>
+    <%= Time.now.month %>/<%= Time.now.day %>/<%= Time.now.year %> :: <%= Time.now.strftime("%I") %> : <%= Time.now.min %>
+  </footer>
 </html>
