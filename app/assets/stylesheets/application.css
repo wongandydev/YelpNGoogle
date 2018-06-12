@@ -16,9 +16,15 @@
 
 
 .primary-btn{
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 38px;
     background-color: #F08080;
+}
+
+
+#search_bar{
+    width: 250px;
+    height: 35px;
 }
 
 #result{
@@ -71,4 +77,8 @@ footer{
     clear: both;
     padding-top: 10px;
     background: #F08080;
+}
+
+button{
+    border: 3px dotted green;
 }

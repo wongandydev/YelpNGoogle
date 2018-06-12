@@ -24,6 +24,8 @@ class HelloWorld extends React.Component {
     this.setState({query: event.target.value});
     }
 
+
+
     callYelp(coordinates){
       var yelpURI = "https://api.foursquare.com/v2/venues/" +
           "search?ll=" + coordinates +
@@ -46,22 +48,41 @@ class HelloWorld extends React.Component {
                   var tableRow = document.createElement("tr");
                   var tableDetailName = document.createElement("td");
                   var tableDetailAddress = document.createElement("td");
+                  var tableDetailDirection = document.createElement("td");
+                  var buttonElement = document.createElement("button")
                   var name = document.createTextNode(response.response.venues[t].name);
                   var address = document.createTextNode(response.response.venues[t].location.formattedAddress);
+                  var direction = document.createTextNode("Change Me");
                   // var addressEnd = document.createTextNode(response.response.venues[t].location.city + ", "
                   //     + response.response.venues[t].location.state + ", "
                   //     + response.response.venues[t].location.postalCode);
 
+                  buttonElement.addEventListener ("click", function() {
+                      map = new google.maps.Map(document.getElementById('map'), {
+                          center: {lat: latitude, lng: longitude},
+                          zoom: 15
+                      });
+
+                      var marker = new google.maps.Marker({
+                          position: new google.maps.LatLng(40.7135097,-73.9859414),
+                          map: map,
+                          title: 'Hello World!'
+                      });
+                  });
 
                   // var lineBreak = document.createElement("br");
 
+                  buttonElement.appendChild(direction);
+
                   tableDetailName.appendChild(name);
                   tableDetailAddress.appendChild(address);
+                  tableDetailDirection.appendChild(buttonElement);
                   // tableDetailAddress.appendChild(lineBreak);
                   // tableDetailAddress.appendChild(addressEnd);
 
                   tableRow.appendChild(tableDetailName);
                   tableRow.appendChild(tableDetailAddress);
+                  tableRow.appendChild(tableDetailDirection);
 
                   document.getElementById("result").appendChild(tableRow);
               }
@@ -78,6 +99,8 @@ class HelloWorld extends React.Component {
           this.state.zip_code +
           "&key=AIzaSyCG-FPVU4hZRhs6usmsLTbYfUOeUV9VLcQ";
       event.preventDefault();
+
+      alert(mapsURI);
 
       var coordinates = document.getElementById("currentLocation").innerHTML;
       let request = new XMLHttpRequest();
@@ -107,12 +130,11 @@ class HelloWorld extends React.Component {
                   <label>
                       What do you want to eat or do?
                       <br></br>
-                      <input placeholder="Address, City, or Zip Code" type="text" value={this.state.zip_code} onChange={this.handleZipSearchBar}/>
-                      <br></br>
-                      <input placeholder="Search" type="text" value={this.state.query} onChange={this.handleSearchBar}/>
+                      <input id="search_bar" placeholder="Address, City, or Zip Code" type="text" value={this.state.zip_code} onChange={this.handleZipSearchBar}/>
+                      <input id="search_bar" placeholder="Search" type="text" value={this.state.query} onChange={this.handleSearchBar}/>
                   </label>
                   {/*<input type="button" value="Search"/>*/}
-                  <button className="primary-btn" onClick={this.searchToCoords}>Test</button>
+                  <button className="primary-btn" onClick={this.searchToCoords}> Search </button>
               </form>
           </div>
       );

@@ -69,6 +69,12 @@
                   zoom: 15
               });
 
+              var marker = new google.maps.Marker({
+                  position: new google.maps.LatLng(40.7135097,-73.9859414),
+                  map: map,
+                  title: 'Hello World!'
+              });
+
               document.getElementById("currentLocation").innerHTML = latitude.toFixed(2)+ "," +longitude.toFixed(2)
           }
 
