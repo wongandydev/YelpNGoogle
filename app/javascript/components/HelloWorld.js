@@ -100,8 +100,6 @@ class HelloWorld extends React.Component {
           "&key=AIzaSyCG-FPVU4hZRhs6usmsLTbYfUOeUV9VLcQ";
       event.preventDefault();
 
-      alert(mapsURI);
-
       var coordinates = document.getElementById("currentLocation").innerHTML;
       let request = new XMLHttpRequest();
 
