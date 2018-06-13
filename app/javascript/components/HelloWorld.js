@@ -5,15 +5,15 @@ import $ from 'jquery';
 class HelloWorld extends React.Component {
 
     constructor(props){
-    super(props);
-    this.state = {
-        zip_code: '',
-        query: ''
-    };
+        super(props);
+        this.state = {
+            zip_code: '10002',
+            query: ''
+        };
 
-    this.handleSearchBar = this.handleSearchBar.bind(this);
-    this.handleZipSearchBar = this.handleZipSearchBar.bind(this);
-    this.searchToCoords = this.searchToCoords.bind(this);
+        this.handleSearchBar = this.handleSearchBar.bind(this);
+        this.handleZipSearchBar = this.handleZipSearchBar.bind(this);
+        this.searchToCoords = this.searchToCoords.bind(this);
     }
 
     handleZipSearchBar(event){
@@ -21,16 +21,15 @@ class HelloWorld extends React.Component {
     }
 
     handleSearchBar(event){
-    this.setState({query: event.target.value});
+        this.setState({query: event.target.value});
     }
-
 
 
     callYelp(coordinates){
       var yelpURI = "https://api.foursquare.com/v2/venues/" +
           "search?ll=" + coordinates +
-          "&client_id=5RSBBHE3RXROWA1023R5YVTTTN0BRAWEGP40H4OVKNGMUXHB&" +
-          "client_secret=BJ0KDIUCUDVIZ1BHLNPJUNRWXWUN41N2RFPZ55A1WTDVNMAZ&" +
+          "&client_id=" + config.FOURSQUARE_CLIENT_ID + "&" +
+          "client_secret=" + config.FOURSQUARE_CLIENT_SECRET + "&" +
           "v=20180323&" +
           "query=" + this.state.query;
 
@@ -53,9 +52,6 @@ class HelloWorld extends React.Component {
                   var name = document.createTextNode(response.response.venues[t].name);
                   var address = document.createTextNode(response.response.venues[t].location.formattedAddress);
                   var direction = document.createTextNode("Change Me");
-                  // var addressEnd = document.createTextNode(response.response.venues[t].location.city + ", "
-                  //     + response.response.venues[t].location.state + ", "
-                  //     + response.response.venues[t].location.postalCode);
 
                   buttonElement.addEventListener ("click", function() {
                       map = new google.maps.Map(document.getElementById('map'), {
@@ -69,8 +65,6 @@ class HelloWorld extends React.Component {
                           title: 'Hello World!'
                       });
                   });
-
-                  // var lineBreak = document.createElement("br");
 
                   buttonElement.appendChild(direction);
 
@@ -97,25 +91,27 @@ class HelloWorld extends React.Component {
     searchToCoords(event){
       var mapsURI = "https://maps.googleapis.com/maps/api/geocode/json?address=" +
           this.state.zip_code +
-          "&key=AIzaSyCG-FPVU4hZRhs6usmsLTbYfUOeUV9VLcQ";
+          "&key=" + config.GOOGLE_KEY;
+
       event.preventDefault();
 
       var coordinates = document.getElementById("currentLocation").innerHTML;
+      this.callYelp(coordinates);
+
       let request = new XMLHttpRequest();
 
       request.onreadystatechange = function() {
           if (this.readyState === 4 && this.status === 200) {
               let response = JSON.parse(this.responseText);
-              coordinates = response.results[0].geometry.location.lat + "," + response.results[0].geometry.location.lng;
+              coordinates = response.results[0].geometry.location.lat.toFixed(2) + "," + response.results[0].geometry.location.lng.toFixed(2);
               document.getElementById("currentLocation").innerHTML = coordinates
           }
       }
 
       request.open("GET", mapsURI, true);
       request.send();
-
-      this.callYelp(coordinates);
     }
+
 
 
     render() {
@@ -128,10 +124,9 @@ class HelloWorld extends React.Component {
                   <label>
                       What do you want to eat or do?
                       <br></br>
-                      <input id="search_bar" placeholder="Address, City, or Zip Code" type="text" value={this.state.zip_code} onChange={this.handleZipSearchBar}/>
                       <input id="search_bar" placeholder="Search" type="text" value={this.state.query} onChange={this.handleSearchBar}/>
+                      <input id="search_bar" placeholder="Address, City, or Zip Code" type="text" value={this.state.zip_code} onChange={this.handleZipSearchBar}/>
                   </label>
-                  {/*<input type="button" value="Search"/>*/}
                   <button className="primary-btn" onClick={this.searchToCoords}> Search </button>
               </form>
           </div>

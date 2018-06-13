@@ -3,3 +3,4 @@ log/
 public/
 tmp/
 tmp/cache/
+config.js

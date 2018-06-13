@@ -4,7 +4,7 @@
     <title>Yelp + Google</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <script type='text/javascript' src='config.js'></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -12,11 +12,6 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
-    <style>
-
-    </style>
-
   </head>
 
   <body>
@@ -44,10 +39,10 @@
 
         </table>
       </div>
+
+
       <script>
           var map;
-          var lat = 40.21;
-          var lng = -73.98;
 
           function getLocation(){
               if(navigator.geolocation){
@@ -58,9 +53,33 @@
 
           }
 
+          function getCoords(latitude, longitude) {
+              alert(latitude + "," + longitude);
+          }
+
+          // function getCoords(coordinates){
+          //     var mapsURI = "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+          //         "40,71" +
+          //         "&key=AIzaSyCG-FPVU4hZRhs6usmsLTbYfUOeUV9VLcQ";
+          //
+          //     let request = new XMLHttpRequest();
+          //
+          //     request.onreadystatechange = function() {
+          //         if (this.readyState === 4 && this.status === 200) {
+          //             let response = JSON.parse(this.responseText);
+          //             var zipCode = response.results[0].[8].long_name;
+          //             document.getElementById("currentLocation").innerHTML = zipCode;
+          //             console.log(zipCode);
+          //         }
+          //     }
+          //
+          //     request.open("GET", mapsURI, true);
+          //     request.send();
+          // }
+
           function mapWithCurrentLocation(position){
               initMap(position.coords.latitude, position.coords.longitude);
-
+              getCoords(position.coords.latitude, position.coords.longitude);
           }
 
           function initMap(latitude, longitude) {
@@ -70,7 +89,7 @@
               });
 
               var marker = new google.maps.Marker({
-                  position: new google.maps.LatLng(40.7135097,-73.9859414),
+                  position: new google.maps.LatLng(latitude,longitude),
                   map: map,
                   title: 'Hello World!'
               });
@@ -79,13 +98,16 @@
           }
 
           window.onload = function() {
-              initMap(lat, lng);
+              getLocation();
           };
       </script>
+
       <script async defer
               src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCG-FPVU4hZRhs6usmsLTbYfUOeUV9VLcQ&callback=initMap">
       </script>
     </div>
+
+
     <footer>
       <%= Time.now.month %>/<%= Time.now.day %>/<%= Time.now.year %> :: <%= Time.now.strftime("%I") %> : <%= Time.now.min %>
     </footer>
