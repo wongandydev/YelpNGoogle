@@ -55,7 +55,7 @@ class HelloWorld extends React.Component {
             if (this.readyState === 4 && this.status === 200) {
                 let response = JSON.parse(this.responseText);
 
-                var table = document.getElementById("result").innerHTML = "";
+                document.getElementById("result").innerHTML = "";
 
                 var t;
                 for (t in response.response.venues){
@@ -64,7 +64,7 @@ class HelloWorld extends React.Component {
 
                     var tableDetailName = document.createElement("td");
                     tableDetailName.id = "name_cell";
-                    tableDetailNamegit .onclick = function(){
+                    tableDetailName.onclick = function(){
                         alert("click row");
                     }
                     var tableDetailAddress = document.createElement("td");

@@ -111,6 +111,12 @@ td a:link{
     text-decoration: none;
 }
 
+td a:hover{
+    border: 3px solid black;
+    padding: 2px;
+    font-size: large;
+}
+
 td a:visited{
     color: red;
 }
