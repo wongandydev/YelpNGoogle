@@ -28,20 +28,27 @@
 }
 
 /*IDs*/
-
-#result{
-    width: 400px;
-    border: 3px solid green;
-    word-wrap: break-word;
-    float: left;
+#currentlocation_button{
+    font-size: 15px;
+    background-color: #F08080;
+    width: 150px;
+    height: 38px;
 }
 
-#table_header{
-    width: 400px;
-    border: 3px solid green;
-    word-wrap: break-word;
-    float: left;
+#currentlocation_button:hover{
+    opacity: 0.8;
 }
+
+#go_here_column{
+    width: 150px;
+}
+
+/*#table_header{*/
+    /*width: 500px;*/
+    /*border: 3px solid green;*/
+    /*word-wrap: break-word;*/
+    /*float: left;*/
+/*}*/
 
 #center {
     text-align: center;
@@ -56,12 +63,14 @@
 html {
     border: 3px solid green;
     height: 100%;
+    width: 100%;
     display: table;
     margin: auto;
     position: relative;
 }
 
 body {
+    font-family: "Helvetica Neue";
     border: 5px dotted red;
     display: table-cell;
     vertical-align: middle;
@@ -82,6 +91,26 @@ footer{
     background: #F08080;
 }
 
-button{
-    border: 3px dotted green;
+table{
+    width: 500px;
+    border: 3px solid green;
+    word-wrap: break-word;
+    float: left;
+}
+
+#name_cell:hover{
+    background-color: #F08080;
+}
+
+td a{
+
+}
+
+td a:link{
+    color: red;
+    text-decoration: none;
+}
+
+td a:visited{
+    color: red;
 }

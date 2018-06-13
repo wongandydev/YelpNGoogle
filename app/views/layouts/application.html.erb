@@ -19,25 +19,23 @@
     <%= react_component("HelloWorld") %>
     Current Location: <div id="currentLocation"> <br></div>
 
-    <button onclick="getLocation()"> Use Current Location</button>
+    <button id="currentlocation_button" onclick="getLocation()"> Use Current Location</button>
 
     <div id = "yelpNmap">
       <div id="map">
       </div>
 
-      <div>
-        <table id="table_header">
-          <tr>
-            <th>Store Name</th>
-            <th>Address</th>
-            <th> Go Here </th>
-          </tr>
-        </table>
 
-        <table id="result">
+    <table>
+        <tr>|
+          <th>Store Name</th>
+          <th>Address</th>
+          <th id="go_here_column"> Go Here </th>
+        </tr>
+      <tbody id="result">
 
-        </table>
-      </div>
+      </tbody>
+    </table>
 
 
       <script>

@@ -25,9 +25,9 @@ class HelloWorld extends React.Component {
         this.setState({query: event.target.value});
     }
 
-    callYelp(coordinates){
+    callYelp(lat, lng){
         var yelpURI = "https://api.foursquare.com/v2/venues/" +
-            "search?ll=" + coordinates +
+            "search?ll=" + lat + "," + lng+
             "&client_id=" + config.FOURSQUARE_CLIENT_ID + "&" +
             "client_secret=" + config.FOURSQUARE_CLIENT_SECRET + "&" +
             "v=20180323&" +
@@ -35,44 +35,69 @@ class HelloWorld extends React.Component {
 
         let request = new XMLHttpRequest();
 
+        function setMap(lat,lng) {
+            alert(JSON.stringify(lat));
+            alert(lat + " " + lng);
+            // return function () {
+            //     map = new google.maps.Map(document.getElementById('map'), {
+            //         center: {lat: lat, lng: lng},
+            //         zoom: 15
+            //     });
+            //
+            //     var marker = new google.maps.Marker({
+            //         position: new google.maps.LatLng(lat, lng),
+            //         map: map
+            //     });
+            // }
+        }
+
         request.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
                 let response = JSON.parse(this.responseText);
 
-                document.getElementById("result").innerHTML = "";
+                var table = document.getElementById("result").innerHTML = "";
 
                 var t;
                 for (t in response.response.venues){
 
                     var tableRow = document.createElement("tr");
+
                     var tableDetailName = document.createElement("td");
+                    tableDetailName.id = "name_cell";
+                    tableDetailNamegit .onclick = function(){
+                        alert("click row");
+                    }
                     var tableDetailAddress = document.createElement("td");
                     var tableDetailDirection = document.createElement("td");
-                    var buttonElement = document.createElement("button")
+
+                    var buttonElement = document.createElement("a");
+
                     var name = document.createTextNode(response.response.venues[t].name);
                     var address = document.createTextNode(response.response.venues[t].location.formattedAddress);
-                    var direction = document.createTextNode("Change Me");
+                    var linkText = document.createTextNode("Bring Me Here!");
 
-                    buttonElement.addEventListener ("click", function() {
-                        map = new google.maps.Map(document.getElementById('map'), {
-                            center: {lat: latitude, lng: longitude},
-                            zoom: 15
-                        });
+                    var lat1 = response.response.venues[t].location.lat;
+                    var lng1 = response.response.venues[t].location.lng;
 
-                        var marker = new google.maps.Marker({
-                            position: new google.maps.LatLng(40.7135097,-73.9859414),
-                            map: map,
-                            title: 'Hello World!'
-                        });
-                    });
 
-                    buttonElement.appendChild(direction);
+                    buttonElement.href = "https://www.google.com/maps/dir/?api=1&origin=" +
+                        lat+","+lng +
+                        "&destination=" +
+                        response.response.venues[t].name;
+
+                    buttonElement.target = "_blank"
+
+                    //
+                    // buttonElement.onclick = function(latt, lngg) {
+                    //     return setMap(latt, lngg);
+                    // };
+
+                    buttonElement.appendChild(linkText);
 
                     tableDetailName.appendChild(name);
                     tableDetailAddress.appendChild(address);
                     tableDetailDirection.appendChild(buttonElement);
-                    // tableDetailAddress.appendChild(lineBreak);
-                    // tableDetailAddress.appendChild(addressEnd);
+                    tableDetailDirection.id = "go_here_column"
 
                     tableRow.appendChild(tableDetailName);
                     tableRow.appendChild(tableDetailAddress);
@@ -92,11 +117,11 @@ class HelloWorld extends React.Component {
 
         var mapsURI = "https://maps.googleapis.com/maps/api/geocode/json?address=" + zip_code +
             "&key=" + config.GOOGLE_KEY;
-        alert(zip_code);
-        alert(mapsURI);
+
         event.preventDefault();
 
-        var coordinates = document.getElementById("currentLocation").innerHTML;
+        var lat = document.getElementById("currentLocation").innerHTML;
+        var lng = "";
 
         let request = new XMLHttpRequest();
 
@@ -104,9 +129,10 @@ class HelloWorld extends React.Component {
             if (this.readyState === 4 && this.status === 200) {
                 let response = JSON.parse(this.responseText);
                 //setCoordinates(response.results[0].geometry.location.lat.toFixed(2), response.results[0].geometry.location.lng.toFixed(2));
-                coordinates = response.results[0].geometry.location.lat.toFixed(2) + "," + response.results[0].geometry.location.lng.toFixed(2);
+                lat = response.results[0].geometry.location.lat;
+                lng = response.results[0].geometry.location.lng;
                 document.getElementById("currentLocation").innerHTML = response.results[0].formatted_address;
-                alert("after call" + response.results[0].formatted_address);
+
                 window.setCurrentAddress(response.results[0].formatted_address);
             }
         }
@@ -114,7 +140,7 @@ class HelloWorld extends React.Component {
         request.open("GET", mapsURI, false);
         request.send();
 
-        this.callYelp(coordinates);
+        this.callYelp(lat,lng);
     }
 
     render() {
