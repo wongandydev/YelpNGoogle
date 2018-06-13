@@ -14,7 +14,7 @@
  *= require_self
  */
 
-
+/*Classes*/
 .primary-btn{
     width: 80px;
     height: 38px;
@@ -22,10 +22,12 @@
 }
 
 
-#search_bar{
+.search_bar{
     width: 250px;
     height: 35px;
 }
+
+/*IDs*/
 
 #result{
     width: 400px;
@@ -50,6 +52,7 @@
     float: left;
 }
 
+/*HTML Elements*/
 html {
     border: 3px solid green;
     height: 100%;
