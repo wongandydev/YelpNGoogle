@@ -36,19 +36,9 @@ class HelloWorld extends React.Component {
         let request = new XMLHttpRequest();
 
         function setMap(lat,lng) {
-            alert(JSON.stringify(lat));
-            alert(lat + " " + lng);
-            // return function () {
-            //     map = new google.maps.Map(document.getElementById('map'), {
-            //         center: {lat: lat, lng: lng},
-            //         zoom: 15
-            //     });
-            //
-            //     var marker = new google.maps.Marker({
-            //         position: new google.maps.LatLng(lat, lng),
-            //         map: map
-            //     });
-            // }
+            return function() {
+                window.initMap(lat, lng);
+            }
         }
 
         request.onreadystatechange = function() {
@@ -64,9 +54,9 @@ class HelloWorld extends React.Component {
 
                     var tableDetailName = document.createElement("td");
                     tableDetailName.id = "name_cell";
-                    tableDetailName.onclick = function(){
-                        alert("click row");
-                    }
+
+                    // tableDetailName.addEventListener("onClick") =
+
                     var tableDetailAddress = document.createElement("td");
                     var tableDetailDirection = document.createElement("td");
 
@@ -79,25 +69,16 @@ class HelloWorld extends React.Component {
                     var lat1 = response.response.venues[t].location.lat;
                     var lng1 = response.response.venues[t].location.lng;
 
+                    buttonElement.onclick = setMap(lat1, lng1);
 
-                    buttonElement.href = "https://www.google.com/maps/dir/?api=1&origin=" +
-                        lat+","+lng +
-                        "&destination=" +
-                        response.response.venues[t].name;
-
-                    buttonElement.target = "_blank"
-
-                    //
-                    // buttonElement.onclick = function(latt, lngg) {
-                    //     return setMap(latt, lngg);
-                    // };
+                    buttonElement.target = "_blank";
 
                     buttonElement.appendChild(linkText);
 
                     tableDetailName.appendChild(name);
                     tableDetailAddress.appendChild(address);
                     tableDetailDirection.appendChild(buttonElement);
-                    tableDetailDirection.id = "go_here_column"
+                    tableDetailDirection.id = "go_here_column";
 
                     tableRow.appendChild(tableDetailName);
                     tableRow.appendChild(tableDetailAddress);
