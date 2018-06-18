@@ -18,50 +18,108 @@
 .primary-btn{
     width: 80px;
     height: 38px;
-    background-color: #F08080;
+    background-color: #A6FF81;
+}
+
+.primary-btn:hover{
+    cursor: pointer;
+    background-color: #f0f0f0;
+    opacity: 0.6;
 }
 
 
 .search_bar{
     width: 250px;
     height: 35px;
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
+
+
 /*IDs*/
+
+#spinner {
+    border: 10px solid #4BFF00;
+    border-top: 10px solid lightpink;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 2s linear infinite;
+
+    display:inline-block;
+    position:relative;
+}
+
+
+#currentLocation{
+    margin-bottom: 6px;
+}
+
 #currentlocation_button{
     font-size: 15px;
-    background-color: #F08080;
-    width: 150px;
+    background-color: lightpink;
+    width: 200px;
     height: 38px;
+    margin-bottom: 10px;
 }
 
 #currentlocation_button:hover{
     opacity: 0.8;
+    cursor: pointer;
 }
 
 #go_here_column{
     width: 150px;
 }
 
-/*#table_header{*/
-    /*width: 500px;*/
-    /*border: 3px solid green;*/
-    /*word-wrap: break-word;*/
-    /*float: left;*/
-/*}*/
-
 #center {
     text-align: center;
 }
+
 #map {
-    height: 400px;
-    width: 400px;
-    float: left;
+    height: 500px;
+    width: 500px;
+    float: snap;
+    position: fixed;
+    transition: ease-in;
+    display: none;
+    border: 3px solid lightpink;
+    margin-bottom: 10px;
+}
+
+#name_cell{
+    font-weight: bold;
+}
+
+#name_cell:hover{
+    background-color: #F08080;
+    border: 2px solid black;
+    cursor: pointer;
+}
+
+#cooler-buttons{
+    background-color: grey;
+    border-radius: 5px;
+    padding: 10px;
+    opacity: 1;
+    color: white;
+}
+
+#cooler-buttons:link{
+    text-decoration: none;
+}
+
+#cooler-buttons:hover{
+    opacity: 0.8;
+}
+
+#cooler-buttons:visited{
+    color: white;
 }
 
 /*HTML Elements*/
 html {
-    border: 3px solid green;
     height: 100%;
     width: 100%;
     display: table;
@@ -70,13 +128,30 @@ html {
 }
 
 body {
-    font-family: "Helvetica Neue";
-    border: 5px dotted red;
+    font-family: 'Poppins';
     display: table-cell;
-    vertical-align: middle;
-    background-color: #F7F7F7;
+    background-color: #A6FF81;
     margin: 0 0 100px;
-    padding-bottom: 30px;
+    padding-bottom: 80px;
+    padding-left: 10px;
+    padding-right: 20px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+h1{
+    font-size: 30px;
+}
+
+header{
+    background-color: lightpink;
+    display: inline-block;
+    width: 100%;
+    padding-bottom: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: center;
+    color: white;
 }
 
 footer{
@@ -88,35 +163,69 @@ footer{
     width: 100%;
     clear: both;
     padding-top: 10px;
-    background: #F08080;
+    background: lightpink;
 }
 
 table{
-    width: 500px;
-    border: 3px solid green;
+    max-width: 900px;
+    border: 3px solid lightpink;
     word-wrap: break-word;
     float: left;
-}
-
-#name_cell:hover{
-    background-color: #F08080;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 td a{
-
+    text-align: center;
 }
 
 td a:link{
-    color: red;
+    color: coral;
     text-decoration: none;
 }
 
 td a:hover{
     border: 3px solid black;
-    padding: 2px;
+    padding: 5px;
     font-size: large;
 }
 
 td a:visited{
-    color: red;
+    color: coral;
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInFromRight {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+html {
+    /* This section calls the slideInFromLeft animation we defined above */
+    animation: 1s ease-out 0s 1 slideInFromLeft;
+}
+
+table{
+    animation: 1s ease-out 0s 1 slideInFromLeft;
+}
+
+.maps {
+    animation: 1s ease-out 0s 1 slideInFromRight;
 }

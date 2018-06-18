@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Yelp + Google</title>
+    <title>Yelp N' Google</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
     <script type='text/javascript' src='config.js'></script>
-    <script type='text/javascript' src='apicall.js'></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -15,28 +17,37 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <header>
+    <h1 id="center">Yelp N' Google</h1>
+    <a id="cooler-buttons" href="https://github.com/andyw0ng/yelpNgoogle" target="_blank"> Github Repo </a>
+    <br>
+    <br>
     <%= react_component("HelloWorld") %>
-    Current Location: <div id="currentLocation"> <br></div>
+  </header>
 
-    <button id="currentlocation_button" onclick="getLocation()"> Use Current Location</button>
+  <body>
+    <div>
+      Current Location:
+      <div id="currentLocation">
+        <br>
+        <div id="spinner"></div>
+      </div>
+      <button id="currentlocation_button" onclick="getLocation()"> Use Current Location</button>
+    </div>
 
     <div id = "yelpNmap">
-      <div id="map">
-      </div>
+      <table id="showTable" style="display:none;">
+          <tr>
+            <th>Store Name</th>
+            <th>Address</th>
+            <th id="go_here_column"> Go Here </th>
+          </tr>
+        <tbody id="result"></tbody>
+      </table>
+    </div>
 
-
-    <table>
-        <tr>|
-          <th>Store Name</th>
-          <th>Address</th>
-          <th id="go_here_column"> Go Here </th>
-        </tr>
-      <tbody id="result">
-
-      </tbody>
-    </table>
-
+    <div id="map" class="maps">
+    </div>
 
       <script>
           var map;
@@ -44,11 +55,30 @@
 
           function getLocation(){
               if(navigator.geolocation){
-                  navigator.geolocation.getCurrentPosition(mapWithCurrentLocation);
+                  navigator.geolocation.getCurrentPosition(mapWithCurrentLocation, showError);
               } else {
-                  alert("Geolocation is not supported.");
+                  alert("Geolocation is not supported or given");
               }
 
+          }
+
+          function showError(error) {
+              switch(error.code) {
+                  case error.PERMISSION_DENIED:
+                     alert("User denied the request for Geolocation.");
+                     document.getElementById("spinner").visible = false;
+
+                     break;
+                  case error.POSITION_UNAVAILABLE:
+                      alert("Location information is unavailable.");
+                      break;
+                  case error.TIMEOUT:
+                      alert("The request to get user location timed out.");
+                      break;
+                  case error.UNKNOWN_ERROR:
+                      alert("An unknown error occurred.");
+                      break;
+              }
           }
 
           function convertCoordsToZip(latitude, longitude) {
@@ -63,6 +93,7 @@
                       let response = JSON.parse(this.responseText);
                       let zip_code = response.results[0].formatted_address;
 
+                      document.getElementsByClassName("spinner").visible = false;
                       document.getElementById("currentLocation").innerText = zip_code;
                       address = zip_code;
                   }
@@ -81,7 +112,6 @@
           }
 
           function mapWithCurrentLocation(position){
-              initMap(position.coords.latitude, position.coords.longitude);
               convertCoordsToZip(position.coords.latitude, position.coords.longitude);
           }
 
@@ -109,7 +139,9 @@
 
 
     <footer>
-      <%= Time.now.month %>/<%= Time.now.day %>/<%= Time.now.year %> :: <%= Time.now.strftime("%I") %> : <%= Time.now.min %>
+      <p>Last loaded on: <%= Time.now.month %>/<%= Time.now.day %>/<%= Time.now.year %> :: <%= Time.now.strftime("%I") %> : <%= Time.now.min %>
+      <br> By Andy Wong.
+      </p>
     </footer>
   </body>
 

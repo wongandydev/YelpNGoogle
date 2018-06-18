@@ -27,7 +27,7 @@ class HelloWorld extends React.Component {
 
     callYelp(lat, lng){
         var yelpURI = "https://api.foursquare.com/v2/venues/" +
-            "search?ll=" + lat + "," + lng+
+            "search?ll=" + lat + "," + lng +
             "&client_id=" + config.FOURSQUARE_CLIENT_ID + "&" +
             "client_secret=" + config.FOURSQUARE_CLIENT_SECRET + "&" +
             "v=20180323&" +
@@ -37,6 +37,7 @@ class HelloWorld extends React.Component {
 
         function setMap(lat,lng) {
             return function() {
+                document.getElementById("map").style.display = "block";
                 window.initMap(lat, lng);
             }
         }
@@ -49,13 +50,11 @@ class HelloWorld extends React.Component {
 
                 var t;
                 for (t in response.response.venues){
-
                     var tableRow = document.createElement("tr");
 
                     var tableDetailName = document.createElement("td");
                     tableDetailName.id = "name_cell";
 
-                    // tableDetailName.addEventListener("onClick") =
 
                     var tableDetailAddress = document.createElement("td");
                     var tableDetailDirection = document.createElement("td");
@@ -69,7 +68,12 @@ class HelloWorld extends React.Component {
                     var lat1 = response.response.venues[t].location.lat;
                     var lng1 = response.response.venues[t].location.lng;
 
-                    buttonElement.onclick = setMap(lat1, lng1);
+
+                    tableDetailName.onclick = setMap(lat1, lng1);
+
+                    buttonElement.href = "https://www.google.com/maps/dir/?api=1" +
+                        "&destination=" +
+                        response.response.venues[t].location.formattedAddress;
 
                     buttonElement.target = "_blank";
 
@@ -112,6 +116,7 @@ class HelloWorld extends React.Component {
                 //setCoordinates(response.results[0].geometry.location.lat.toFixed(2), response.results[0].geometry.location.lng.toFixed(2));
                 lat = response.results[0].geometry.location.lat;
                 lng = response.results[0].geometry.location.lng;
+                document.getElementById("showTable").style.display = "block";
                 document.getElementById("currentLocation").innerHTML = response.results[0].formatted_address;
 
                 window.setCurrentAddress(response.results[0].formatted_address);
@@ -127,12 +132,9 @@ class HelloWorld extends React.Component {
     render() {
         return (
             <div>
-                <h1 id="center">
-                    The Yelp + Maps Tool
-                </h1>
                 <form>
                     <label>
-                        What do you want to eat or do?
+                        <p>What do you want to eat or do?></p>
                         <br></br>
                         <input className="search_bar" placeholder="Search" type="text" onChange={this.handleSearchBar}/>
                         <input className="search_bar" placeholder="Address, City, or Zip Code" type="text" onChange={this.handleZipSearchBar}/>
