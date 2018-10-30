@@ -1,2 +1,0 @@
-class SearchHistory < ApplicationRecord
-end
