@@ -2,7 +2,7 @@
   "name": "yelpNGoogle",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "3.5",
+    "@rails/webpacker": "5.4",
     "babel-preset-react": "^6.24.1",
     "jquery": "^3.5.0",
     "latlng-to-zip": "0.0.1",
